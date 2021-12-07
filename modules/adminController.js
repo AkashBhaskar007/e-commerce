@@ -2,7 +2,8 @@ require('dotenv').config()
 const {
     adminDetails,
     createAdmin,
-    adminLoginService
+    adminLoginService,
+    adminLogoutService
 
 } = require('./adminService')
 exports.registerController = async (req, res) => {
@@ -31,10 +32,18 @@ exports.loginController = async (req, res) => {
     if (user) {
         const adminLogin = await adminLoginService(userName, password)
         if (adminLogin)
-            return res.json({ message: "login Succesfful!", data: adminLogin })
+            return res.json({ message: "login Successful!", data: adminLogin })
         return res.json({ message: "Invalid pasword!" })
     }
     else {
         return res.status(401).json({ message: "User not found!" })
     }
+}
+exports.logoutController = async (req, res) => {
+    const adminLogout = await adminLogoutService()
+    console.log(adminLogout);
+    if (adminLogout)
+        return res.json({ message: "Logout Successful!" })
+    return res.json({ message: "Logout Unsuccessful!" })
+
 }
