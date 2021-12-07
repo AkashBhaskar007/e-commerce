@@ -6,7 +6,7 @@ const {
     registerController,
     loginController,
     logoutController
-} = require('../modules/adminController');
+} = require('../modules/adminModules/adminController');
 
 //RegisterAdmin
 router.post('/registerAdmin', registerController);

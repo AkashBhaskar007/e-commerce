@@ -1,9 +1,9 @@
-const Admin = require('../models/admin');
+const Admin = require('../../models/admin');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
-const { set, del } = require('../redisconfig/redisconfig');
+const { set, del } = require('../../redisconfig/redisconfig');
 
 exports.adminDetails = async (userName) => {
     const userData = await Admin.findOne({ userName })
@@ -37,7 +37,6 @@ exports.adminLoginService = async (userName, password) => {
                 id: admin._id,
                 name: admin.firstName,
             }, process.env.SECRET)
-            console.log(token);
             await set('token', token)
             return token
         }
@@ -46,7 +45,7 @@ exports.adminLoginService = async (userName, password) => {
     return false;
 }
 exports.adminLogoutService = async () => {
-    await del ('token')
+    await del('token')
     return true;
 }
 

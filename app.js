@@ -9,8 +9,11 @@ require('dotenv').config()
 require('./dbconfig/mongoconfig');
 
 const adminLog = require('./routes/admin')
+const userLog = require('./routes/user')
 
 app.use('/admin', adminLog);
+app.use('/user', userLog);
+
 
 app.listen(process.env.PORT, (err) => {
     if (err) {
