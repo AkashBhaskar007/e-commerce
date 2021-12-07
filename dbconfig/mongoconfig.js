@@ -1,6 +1,8 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose')
 try {
-    mongoose.connect("mongodb://localhost:27017/ecommerce");
+    mongoose.connect(process.env.MongooseLink);
     console.log('DB has connected successfully!')
 } catch (error) {
     handleError(error);
@@ -8,3 +10,4 @@ try {
 mongoose.connection.on('error', err => {
     logError(err);
 });
+

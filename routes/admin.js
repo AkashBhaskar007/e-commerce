@@ -1,11 +1,12 @@
-const router = require('express').Router();
 require('dotenv').config()
 
+const router = require('express').Router();
 
 const {
     registerController,
     loginController,
-    logoutController
+    logoutController,
+    viewProductController
 } = require('../modules/adminModules/adminController');
 
 //RegisterAdmin
@@ -14,5 +15,6 @@ router.post('/registerAdmin', registerController);
 router.post('/loginAdmin', loginController);
 //LogoutAdmin
 router.post('/logoutAdmin', logoutController);
-
+//ListItemAdmin
+router.get('/viewProduct', viewProductController)
 module.exports = router
