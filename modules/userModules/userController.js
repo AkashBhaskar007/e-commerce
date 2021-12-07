@@ -23,3 +23,27 @@ exports.registerController = async (req, res) => {
         data: newUser
     });
 }
+
+exports.loginController = async (req, res) => {
+    let { userName, password } = req.body;
+    if (!userName || !password) {
+        return res.status(400).json({ message: "All fields are required!" })
+    }
+    let user = await userDetails(userName);
+    if (user) {
+        const userLogin = await userLoginService(userName, password)
+        if (userLogin)
+            return res.json({ message: "login Successful!", data: userLogin })
+        return res.json({ message: "Invalid pasword!" })
+    }
+    else {
+        return res.status(401).json({ message: "User not found!" })
+    }
+}
+exports.logoutController = async (req, res) => {
+    const userLogout = await adminLogoutService()
+    if (userLogout)
+        return res.json({ message: "Logout Successful!" })
+    return res.json({ message: "Logout Unsuccessful!" })
+
+}

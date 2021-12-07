@@ -36,7 +36,7 @@ exports.loginController = async (req, res) => {
         return res.json({ message: "Invalid pasword!" })
     }
     else {
-        return res.status(401).json({ message: "User not found!" })
+        return res.status(401).json({ message: "Admin not found!" })
     }
 }
 exports.logoutController = async (req, res) => {

@@ -11,8 +11,8 @@ const {
 //RegisterUser
 router.post('/registerUser', registerController);
 //LoginUser
-//router.post('/loginUser', loginController);
+router.post('/loginUser', loginController);
 //LogoutUser
-//router.post('/logoutUser', logoutController);
+router.post('/logoutUser', logoutController);
 
 module.exports = router

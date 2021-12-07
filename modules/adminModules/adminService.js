@@ -37,7 +37,7 @@ exports.adminLoginService = async (userName, password) => {
                 id: admin._id,
                 name: admin.firstName,
             }, process.env.SECRET)
-            await set('token', token)
+            await set('adminToken', token)
             return token
         }
 
@@ -45,7 +45,7 @@ exports.adminLoginService = async (userName, password) => {
     return false;
 }
 exports.adminLogoutService = async () => {
-    await del('token')
+    await del('adminToken')
     return true;
 }
 
