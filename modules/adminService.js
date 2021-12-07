@@ -1,6 +1,10 @@
 const Admin = require('../models/admin');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config()
+
+const { set, get } = require('../redisconfig/redisconfig');
+
 exports.adminDetails = async (userName) => {
     const userData = await Admin.findOne({ userName })
     if (!userData)
@@ -33,8 +37,12 @@ exports.adminLoginService = async (userName, password) => {
                 id: admin._id,
                 name: admin.firstName,
             }, process.env.SECRET)
-            return token;
+            console.log(token);
+            await set('token', token)
+            return token
+        }
 
-        } return false;
     }
+    return false;
 }
+
