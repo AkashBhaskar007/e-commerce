@@ -1,10 +1,10 @@
 require('dotenv').config()
 
-const User = require('../../models/user');
+const User = require('../../../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const { set, del } = require('../../redisconfig/redisconfig');
+const { set, del } = require('../../../redisconfig/redisconfig');
 
 exports.userDetails = async (userName) => {
     const userData = await User.findOne({ userName })
@@ -54,4 +54,3 @@ exports.userLogoutService = async () => {
     await del('userToken')
     return true;
 }
-
