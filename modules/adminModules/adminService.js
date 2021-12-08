@@ -1,10 +1,12 @@
 require('dotenv').config()
 const Admin = require('../../models/admin');
+const User = require('../../models/user');
+
 const Product = require('../../models/product');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const { set, del } = require('../../redisconfig/redisconfig');
+const { set, del, get } = require('../../redisconfig/redisconfig');
 
 exports.adminDetails = async (userName) => {
     const userData = await Admin.findOne({ userName })
@@ -57,4 +59,11 @@ exports.showProductService = async () => {
     if (!product)
         return false;
     return product;
+}
+
+exports.showUsers = async (id) => {
+    const user = await User.find();
+    if (user=="")
+        return false;
+    return user;
 }

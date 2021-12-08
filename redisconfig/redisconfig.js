@@ -8,7 +8,7 @@ const client = redis.createClient({
 });
 client.connect();
 client.on("connect", function () {
-    console.log("Connected!");
+    console.log("Redis Connected!");
 });
 
 exports.set = async (key, data) => {
@@ -17,11 +17,15 @@ exports.set = async (key, data) => {
     console.log(key, data);
     return result;
 }
-exports.get = async (key) => {
-    const data = await client.get(key)
-    return data;
-}
+
 exports.del = async (key) => {
     await client.del(key)
     return true;
+}
+exports.redisTokenCheck = async (key,next) => {
+    const token = await client.exists(key)
+    console.log(token);
+    /*if (token==)
+        return res.json('Login please!')
+    */next();
 }

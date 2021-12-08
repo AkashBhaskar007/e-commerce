@@ -5,7 +5,8 @@ const {
     createAdmin,
     adminLoginService,
     adminLogoutService,
-    showProductService
+    showProductService,
+    showUsers
 
 } = require('./adminService')
 
@@ -49,10 +50,18 @@ exports.logoutController = async (req, res) => {
 }
 exports.viewProductController = async (req, res) => {
     const product = await showProductService();
-    console.log(product);
-    if (!product)
+    if (product == "")
         return res.send({ message: 'No products added!' })
     return res.send({
         data: product
+    })
+}
+
+exports.listUserController = async (req, res) => {
+    const user = await showUsers();
+    if (!user)
+        return res.send({ message: 'No users registered!' })
+    return res.send({
+        data: user
     })
 }

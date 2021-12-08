@@ -17,14 +17,16 @@ exports.createUser = async (params) => {
         lastName,
         email,
         userName,
-        password } = params;
+        password,
+        address } = params;
     const passwordHash = await bcrypt.hash(password, 10);
     const newUser = User.create({
         firstName,
         lastName,
         email,
         userName,
-        password: passwordHash
+        password: passwordHash,
+        address
     });
     if (!newUser)
         return false;

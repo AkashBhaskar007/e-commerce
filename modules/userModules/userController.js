@@ -7,15 +7,15 @@ const {
 } = require('./userService')
 
 exports.registerController = async (req, res) => {
-    let { firstName, lastName, email, userName, password } = req.body;
-    if (!firstName || !lastName || !email || !userName || !password) {
+    let { firstName, lastName, email, userName, password, address } = req.body;
+    if (!firstName || !lastName || !email || !userName || !password || !address) {
         return res.status(400).json({ message: "All fields have not been entered!" })
     }
     let user = await userDetails(userName);
     if (user) {
         return res.status(400).json({ message: "Username already taken, please try another" })
     }
-    const newUser = await createUser({ firstName, lastName, email, userName, password })
+    const newUser = await createUser({ firstName, lastName, email, userName, password, address })
     if (!newUser)
         return res.json({ message: 'User not registered!' })
     return res.json({
@@ -42,6 +42,6 @@ exports.loginController = async (req, res) => {
 }
 exports.logoutController = async (req, res) => {
     const userLogout = await userLogoutService()
-        return res.json({ message: "Logout Successful!" })
+    return res.json({ message: "Logout Successful!" })
 
 }
