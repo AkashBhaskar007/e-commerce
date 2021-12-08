@@ -15,4 +15,7 @@ router.post('/loginUser', loginController);
 //LogoutUser
 router.post('/logoutUser', logoutController);
 
+//ViewProduct
+router.get('./viewProduct', viewProductController)
+
 module.exports = router
