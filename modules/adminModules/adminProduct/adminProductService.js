@@ -25,3 +25,16 @@ exports.showProductService = async () => {
         return false;
     return product;
 }
+exports.editProductService = async (editProduct) => {
+    const editProducts = await Product.updateOne({ _id: editProduct.id }, {
+        productName: editProduct.productName,
+        productDescription: editProduct.productDescription,
+        productCategory: editProduct.productCategory,
+        productQuantityAvailable: editProduct.productQuantityAvailable,
+        productPrice: editProduct.productPrice,
+        productImage: editProduct.productImage
+    })
+    if (editProducts.modifiedCount < 1)
+        return false;
+    return true;
+}

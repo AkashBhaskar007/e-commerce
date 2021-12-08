@@ -7,7 +7,7 @@ const {
     loginController,
     logoutController, } = require('../modules/adminModules/adminRegLog/adminRegLogController');
 
-const { addProductController, viewProductController } = require('../modules/adminModules/adminProduct/adminProductController');
+const { addProductController, viewProductController, editProductController, deleteProductController } = require('../modules/adminModules/adminProduct/adminProductController');
 
 const { listUserController } = require('../modules/adminModules/adminUser/adminUserController');
 
@@ -25,7 +25,13 @@ router.post('/loginAdmin', loginController);
 router.post('/logoutAdmin', tokenCheckMiddleware, logoutController);
 
 //AddProduct
-router.post('/addProduct', tokenCheckMiddleware, addProductController)
+router.post('/addProduct', tokenCheckMiddleware, addProductController);
+
+//EditProduct
+router.put('/editProduct/:id', tokenCheckMiddleware, editProductController);
+
+//DeleteProduct
+router.delete('/deleteProduct/:id', tokenCheckMiddleware, deleteProductController);
 
 //ListItemAdmin
 router.get('/viewProduct', tokenCheckMiddleware, viewProductController);
