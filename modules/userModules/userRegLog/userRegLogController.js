@@ -4,7 +4,7 @@ const {
     createUser,
     userLoginService,
     userLogoutService
-} = require('./userService')
+} = require('./userRegLogService')
 
 exports.registerController = async (req, res) => {
     let { firstName, lastName, email, userName, password, address } = req.body;
