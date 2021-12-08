@@ -38,3 +38,9 @@ exports.editProductService = async (editProduct) => {
         return false;
     return true;
 }
+exports.deleteProductService = async (id) => {
+    const delProduct = await Product.deleteOne({ _id: id })
+    if (delProduct.deletedCount < 1)
+        return false;
+    return true;
+}

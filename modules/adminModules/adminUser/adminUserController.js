@@ -13,3 +13,4 @@ exports.listUserController = async (req, res) => {
         data: user
     })
 }
+

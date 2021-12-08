@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const {
-    addProductService, showProductService,editProductService
+    addProductService, showProductService, editProductService, deleteProductService
 } = require('../adminProduct/adminProductService')
 
 
@@ -49,10 +49,18 @@ exports.editProductController = async (req, res) => {
         productImage
     }
     const eProduct = await editProductService(editProduct)
-    if(!eProduct)
-    return res.send({message: 'Something went wrong'})
+    if (!eProduct)
+        return res.send({ message: 'Something went wrong' })
     return res.send({
-        message:'Product updated successfully',
-        data:editProduct
+        message: 'Product updated successfully',
+        data: editProduct
     });
+}
+
+exports.deleteProductController = async (req, res) => {
+    let { id } = req.params;
+    const product = await deleteProductService(id);
+    if (!product)
+        return res.status(400).json({ message: "Something went wrong!" })
+    return res.json({ message: "Product Deleted!" })
 }
