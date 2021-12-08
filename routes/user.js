@@ -5,7 +5,8 @@ require('dotenv').config()
 const {
     registerController,
     loginController,
-    logoutController
+    logoutController,
+    viewProductController
 } = require('../modules/userModules/userController');
 
 //RegisterUser
