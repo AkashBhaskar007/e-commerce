@@ -33,6 +33,6 @@ exports.redisAdminTokenCheck = async (req,res,next) => {
 exports.redisUserTokenCheck = async (req,res,next) => {
     const token = await client.exists('userToken')
     if (!token)
-        return res.json('Login please!')
+        return res.send('Login please!')
     next();
 }
