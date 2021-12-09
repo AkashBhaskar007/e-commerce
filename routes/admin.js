@@ -13,7 +13,7 @@ const { listUserController } = require('../modules/adminModules/adminUser/adminU
 
 const { tokenCheckMiddleware } = require('../middlewares/tokenCheck');
 
-const { redisTokenCheck } = require('../redisconfig/redisconfig');
+const { redisAdminTokenCheck } = require('../redisconfig/redisconfig');
 
 //RegisterAdmin
 router.post('/registerAdmin', registerController);
@@ -22,21 +22,21 @@ router.post('/registerAdmin', registerController);
 router.post('/loginAdmin', loginController);
 
 //LogoutAdmin
-router.post('/logoutAdmin', tokenCheckMiddleware, logoutController);
+router.post('/logoutAdmin',  redisAdminTokenCheck, logoutController);
 
 //AddProduct
-router.post('/addProduct', tokenCheckMiddleware, addProductController);
+router.post('/addProduct', redisAdminTokenCheck, addProductController);
 
 //EditProduct
-router.put('/editProduct/:id', tokenCheckMiddleware, editProductController);
+router.put('/editProduct/:id', redisAdminTokenCheck, editProductController);
 
 //DeleteProduct
-router.delete('/deleteProduct/:id', tokenCheckMiddleware, deleteProductController);
+router.delete('/deleteProduct/:id', redisAdminTokenCheck, deleteProductController);
 
 //ListItemAdmin
-router.get('/viewProduct', tokenCheckMiddleware, viewProductController);
+router.get('/viewProduct', redisAdminTokenCheck, viewProductController);
 
 //ListUsers
-router.get('/listUsers', tokenCheckMiddleware, listUserController);
+router.get('/listUsers', redisAdminTokenCheck, listUserController);
 
 module.exports = router

@@ -42,7 +42,7 @@ exports.loginController = async (req, res) => {
 }
 exports.logoutController = async (req, res) => {
     const adminLogout = await adminLogoutService()
-    return res.json({ message: "Logout Successful!" })
+    return res.json( "Logout Successful!" )
 
 }
 
