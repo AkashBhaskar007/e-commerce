@@ -9,19 +9,19 @@ const {
     editProfileController
 } = require('../modules/userModules/userRegLog/userRegLogController');
 const { viewProductController } = require('../modules/userModules/userProduct/userProductController');
-const { redisUserTokenCheck,redisUserLoginTokenCheck } = require('../redisconfig/redisconfig');
+const { redisUserTokenCheck, redisUserLoginTokenCheck } = require('../redisconfig/redisconfig');
 const { tokenCheckMiddleware } = require('../middlewares/tokenCheck');
 //RegisterUser
 router.post('/registerUser', registerController);
 
 //LoginUser
-router.post('/loginUser', redisUserLoginTokenCheck,loginController);
+router.post('/loginUser', redisUserLoginTokenCheck, loginController);
 
 //LogoutUser
 router.post('/logoutUser', redisUserTokenCheck, logoutController);
 
 //EditUser
-router.put('/editProfile', tokenCheckMiddleware, editProfileController);
+router.put('/editProfile', redisUserTokenCheck, tokenCheckMiddleware, editProfileController);
 
 //ViewProduct
 router.get('/viewProduct', redisUserTokenCheck, viewProductController)
