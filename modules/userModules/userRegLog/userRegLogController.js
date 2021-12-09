@@ -22,7 +22,8 @@ exports.registerController = async (req, res) => {
         return res.json('User not registered!')
     return res.json({
         message: 'User Registered!',
-        data: newUser
+        data: newUser//OrderProduct
+
     });
 }
 
