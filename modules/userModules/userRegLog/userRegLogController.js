@@ -3,8 +3,10 @@ const {
     userDetails,
     createUser,
     userLoginService,
-    userLogoutService
-} = require('./userRegLogService')
+    userLogoutService,
+    editUserProfileService
+} = require('./userRegLogService');
+
 
 exports.registerController = async (req, res) => {
     let { firstName, lastName, email, userName, password, address } = req.body;
@@ -44,4 +46,29 @@ exports.logoutController = async (req, res) => {
     const userLogout = await userLogoutService()
     return res.send("Logout Successful!")
 
+}
+exports.editProfileController = async (req, res) => {
+    const id = req.user.id;
+    let {
+        firstName,
+        lastName,
+        email,
+        password,
+        address
+    } = req.body;
+    const editProfile = {
+        id,
+        firstName,
+        lastName,
+        email,
+        password,
+        address,
+    }
+    const eProfile = await editUserProfileService(editProfile)
+    if (!eProfile)
+        return res.send('Something went wrong')
+    return res.send({
+        message: 'Profile edited!',
+        data: editProfile
+    });
 }

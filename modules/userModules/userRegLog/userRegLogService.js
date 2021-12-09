@@ -26,7 +26,8 @@ exports.createUser = async (params) => {
         email,
         userName,
         password: passwordHash,
-        address
+        address,
+        role: "User"
     });
     if (!newUser)
         return false;
@@ -52,5 +53,20 @@ exports.userLoginService = async (userName, password) => {
 }
 exports.userLogoutService = async () => {
     await del('userToken')
+    return true;
+}
+exports.editUserProfileService = async (editProfile) => {
+ 
+    const editProducts = await User.updateOne({ _id: editProfile.id }, {
+
+        firstName: editProfile.firstName,
+        lastName: editProfile.lastName,
+        email: editProfile.email,
+        password: editProfile.password,   
+        address: editProfile.address
+    })
+
+    if (editProducts.modifiedCount < 1)
+        return false;
     return true;
 }

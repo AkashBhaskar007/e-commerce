@@ -22,15 +22,21 @@ exports.del = async (key) => {
     await client.del(key)
     return true;
 }
-exports.redisAdminTokenCheck = async (req,res,next) => {
+exports.redisAdminTokenCheck = async (req, res, next) => {
     const token = await client.exists('adminToken')
     console.log(token);
     if (!token)
         return res.json('Login please!')
     next();
 }
-
-exports.redisUserTokenCheck = async (req,res,next) => {
+exports.redisUserLoginTokenCheck = async (req, res, next) => {
+    const token = await client.exists('userToken')
+    console.log(token);
+    if (token)
+        return res.json('Currently logged in! Please logout and login again!')
+    next();
+}
+exports.redisUserTokenCheck = async (req, res, next) => {
     const token = await client.exists('userToken')
     if (!token)
         return res.send('Login please!')

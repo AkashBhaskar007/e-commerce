@@ -50,7 +50,7 @@ exports.editProductController = async (req, res) => {
     }
     const eProduct = await editProductService(editProduct)
     if (!eProduct)
-        return res.send({ message: 'Something went wrong' })
+        return res.send('Something went wrong' )
     return res.send({
         message: 'Product updated successfully',
         data: editProduct
