@@ -9,7 +9,7 @@ const {
 
 const { addProductController, viewProductController, editProductController, deleteProductController } = require('../modules/adminModules/adminProduct/adminProductController');
 
-const { listUserController } = require('../modules/adminModules/adminUser/adminUserController');
+const { listUserController, blockUserController } = require('../modules/adminModules/adminUser/adminUserController');
 
 const { tokenCheckMiddleware } = require('../middlewares/tokenCheck');
 
@@ -28,15 +28,18 @@ router.post('/logoutAdmin', redisAdminTokenCheck, logoutController);
 router.post('/addProduct', redisAdminTokenCheck, tokenCheckMiddleware, addProductController);
 
 //EditProduct
-router.put('/editProduct/:id', redisAdminTokenCheck, editProductController);
+router.put('/editProduct/:id', redisAdminTokenCheck, tokenCheckMiddleware, editProductController);
 
 //DeleteProduct
-router.delete('/deleteProduct/:id', redisAdminTokenCheck, deleteProductController);
+router.delete('/deleteProduct/:id', redisAdminTokenCheck, tokenCheckMiddleware, deleteProductController);
 
 //ListItemAdmin
 router.get('/viewProduct', redisAdminTokenCheck, viewProductController);
 
 //ListUsers
-router.get('/listUsers', redisAdminTokenCheck, listUserController);
+router.get('/listUsers', redisAdminTokenCheck, tokenCheckMiddleware, listUserController);
+
+//BlockUsers
+router.post('/blockUser/:id', redisAdminTokenCheck, blockUserController)
 
 module.exports = router

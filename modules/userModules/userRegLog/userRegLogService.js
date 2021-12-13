@@ -42,7 +42,7 @@ exports.userLoginService = async (userName, password) => {
         if (passwordCheck) {
             let token = jwt.sign({
                 id: user._id,
-                name: user.firstName,
+                userName:user.userName,
                 role: user.role
             }, process.env.SECRET)
             await set('userToken', token)

@@ -1,11 +1,16 @@
 require('dotenv').config();
-
 const { createCart } = require('./productService')
-
+const Product = require('../../models/product')
 exports.cartController = async (req, res) => {
-    const cart = req.user.role;
-    const newCart = await createCart(roles);
+    let { id } = req.params;
+    const userID = req.decoded.id;
+    let { productQuantity } = req.body;
+    const newCart = await createCart(userID, id, productQuantity);
     if (!newCart)
         return res.send('Cart not added!')
-    return res.send('Product added to cart!');
+    const cart = await Product.
+        findById(req.params.id)
+        .populate()
+        .exec();
+    return res.send({ message: 'Product added to cart!', cart });
 }

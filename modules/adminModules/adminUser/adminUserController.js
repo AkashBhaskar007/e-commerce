@@ -1,7 +1,9 @@
 require('dotenv').config()
+const user = require('../../../models/user');
+const User = require('../../../models/user');
 const {
 
-    showUsers
+    showUsers, blockUserService
 
 } = require('../adminUser/adminUserService')
 
@@ -14,3 +16,19 @@ exports.listUserController = async (req, res) => {
     })
 }
 
+exports.blockUserController = async (req, res) => {
+    let { id } = req.params;
+    const blocky = {
+        firstName:User.firstName,
+        lastName:User.lastName,
+        email:User.email,
+        userName:User.userName,
+        password:User.password,
+        address:User.address,
+        role:User.role
+    }
+    const blockUser = await blockUserService(id,blocky);
+    if (!blockUser)
+        return res.status(400).json({ message: "Something went wrong!" })
+    return res.json({ message: "User Blocked!" })
+}
