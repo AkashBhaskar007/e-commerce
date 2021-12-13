@@ -3,11 +3,28 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
 exports.tokenCheckMiddleware = async (req, res, next) => {
-    let token = req.headers.authorization;
-    if (!token)
-        return res.json({ message: "Token is missing!" })
-    const decoded = await jwt.verify(token, process.env.SECRET);
-    console.log(decoded);
-    req.user = decoded;
-    next();
+    const authorization = req.headers.authorization;
+    let result;
+    if (authorization) {
+        const token = req.headers.authorization.split(" ")[1];
+        try {
+            result = jwt.verify(token, process.env.SECRET)
+            req.decoded = result;
+            console.log(result);
+            next();
+        } catch (err) {
+            console.log(err)
+            res.status(500).json("Invalid token");
+        }
+    }
+    else {
+        result = {
+            error: "Token required",
+            status: 401,
+        };
+        res.status(401).send(result);
+    }
 }
+
+
+

@@ -43,6 +43,7 @@ exports.userLoginService = async (userName, password) => {
             let token = jwt.sign({
                 id: user._id,
                 name: user.firstName,
+                role: user.role
             }, process.env.SECRET)
             await set('userToken', token)
             return token
@@ -56,13 +57,13 @@ exports.userLogoutService = async () => {
     return true;
 }
 exports.editUserProfileService = async (editProfile) => {
- 
+
     const editProducts = await User.updateOne({ _id: editProfile.id }, {
 
         firstName: editProfile.firstName,
         lastName: editProfile.lastName,
         email: editProfile.email,
-        password: editProfile.password,   
+        password: editProfile.password,
         address: editProfile.address
     })
 

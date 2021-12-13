@@ -24,6 +24,7 @@ exports.createAdmin = async (params) => {
         lastName,
         userName,
         password: passwordHash,
+        role: 'Admin'
 
     });
     if (!newAdmin)
@@ -32,13 +33,14 @@ exports.createAdmin = async (params) => {
 }
 exports.adminLoginService = async (userName, password) => {
 
-    let admin = await Admin.findOne({ userName })
-    if (admin) {
-        const passwordCheck = await bcrypt.compare(password, admin.password);
+    let user = await Admin.findOne({ userName })
+    if (user) {
+        const passwordCheck = await bcrypt.compare(password, user.password);
         if (passwordCheck) {
             let token = jwt.sign({
-                id: admin._id,
-                name: admin.firstName,
+                id: user._id,
+                name: user.firstName,
+                role: user.role
             }, process.env.SECRET)
             await set('adminToken', token)
             return token

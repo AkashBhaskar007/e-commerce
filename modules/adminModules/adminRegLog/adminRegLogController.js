@@ -8,18 +8,18 @@ const {
 } = require('../adminRegLog/adminRegLogService')
 
 exports.registerController = async (req, res) => {
-    let { firstName, lastName, userName, password, role } = req.body;
+    let { firstName, lastName, userName, password } = req.body;
     if (!firstName || !lastName || !userName || !password) {
-        return res.status(400).json({ message: "All fields have not been entered!" })
+        return res.status(400).send("All fields have not been entered!" )
     }
     let admin = await adminDetails(userName);
     if (admin) {
-        return res.status(400).json({ message: "Username already taken, please try another" })
+        return res.status(400).send("Username already taken, please try another" )
     }
     const newAdmin = await createAdmin({ firstName, lastName, userName, password })
     if (!newAdmin)
-        return res.json({ message: 'Admin not registered!' })
-    return res.json({
+        return res.send('Admin not registered!' )
+    return res.send({
         message: 'Admin Registered!',
         data: newAdmin
     });

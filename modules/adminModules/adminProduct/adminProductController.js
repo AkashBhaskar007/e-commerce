@@ -7,21 +7,24 @@ const {
 
 
 exports.addProductController = async (req, res) => {
-    let { productName,
-        productDescription,
-        productCategory,
-        productQuantityAvailable,
-        productPrice,
-        productImage } = req.body;
-    if (!productName || !productDescription || !productCategory || !productQuantityAvailable || !productPrice || !productImage)
-        return res.status(400).json({ message: "All fields have not been entered!" })
-    const newProduct = await addProductService({ productName, productDescription, productCategory, productQuantityAvailable, productPrice, productImage })
-    if (!newProduct)
-        return res.json({ message: 'Product not added!' })
-    return res.json({
-        message: 'Product added!',
-        data: newProduct
-    });
+    if (req.decoded.role == 'Admin') {
+        let { productName,
+            productDescription,
+            productCategory,
+            productQuantityAvailable,
+            productPrice,
+            productImage } = req.body;
+        if (!productName || !productDescription || !productCategory || !productQuantityAvailable || !productPrice || !productImage)
+            return res.status(400).json({ message: "All fields have not been entered!" })
+        const newProduct = await addProductService({ productName, productDescription, productCategory, productQuantityAvailable, productPrice, productImage })
+        if (!newProduct)
+            return res.json({ message: 'Product not added!' })
+        return res.json({
+            message: 'Product added!',
+            data: newProduct
+        });
+    }
+    return res.send('Not authorised to add products!')
 }
 exports.viewProductController = async (req, res) => {
     const product = await showProductService();
@@ -31,30 +34,35 @@ exports.viewProductController = async (req, res) => {
         data: product
     })
 }
+
+
 exports.editProductController = async (req, res) => {
-    let { productName,
-        productDescription,
-        productCategory,
-        productQuantityAvailable,
-        productPrice,
-        productImage } = req.body;
-    let { id } = req.params;
-    const editProduct = {
-        id,
-        productName,
-        productDescription,
-        productCategory,
-        productQuantityAvailable,
-        productPrice,
-        productImage
+    if (req.role.user == 'Admin') {
+        let { productName,
+            productDescription,
+            productCategory,
+            productQuantityAvailable,
+            productPrice,
+            productImage } = req.body;
+        let { id } = req.params;
+        const editProduct = {
+            id,
+            productName,
+            productDescription,
+            productCategory,
+            productQuantityAvailable,
+            productPrice,
+            productImage
+        }
+        const eProduct = await editProductService(editProduct)
+        if (!eProduct)
+            return res.send('Something went wrong')
+        return res.send({
+            message: 'Product updated successfully',
+            data: editProduct
+        });
     }
-    const eProduct = await editProductService(editProduct)
-    if (!eProduct)
-        return res.send('Something went wrong' )
-    return res.send({
-        message: 'Product updated successfully',
-        data: editProduct
-    });
+    return res.send('Not authorised to add products!')
 }
 
 exports.deleteProductController = async (req, res) => {

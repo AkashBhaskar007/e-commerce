@@ -11,21 +11,21 @@ const { addProductController, viewProductController, editProductController, dele
 
 const { listUserController } = require('../modules/adminModules/adminUser/adminUserController');
 
-//const { tokenCheckMiddleware } = require('../middlewares/tokenCheck');
+const { tokenCheckMiddleware } = require('../middlewares/tokenCheck');
 
-const { redisAdminTokenCheck } = require('../redisconfig/redisconfig');
+const { redisAdminLoginTokenCheck, redisAdminTokenCheck } = require('../redisconfig/redisconfig');
 
 //RegisterAdmin
 router.post('/registerAdmin', registerController);
 
 //LoginAdmin
-router.post('/loginAdmin', loginController);
+router.post('/loginAdmin', redisAdminLoginTokenCheck, loginController);
 
 //LogoutAdmin
 router.post('/logoutAdmin', redisAdminTokenCheck, logoutController);
 
 //AddProduct
-router.post('/addProduct', redisAdminTokenCheck, addProductController);
+router.post('/addProduct', redisAdminTokenCheck, tokenCheckMiddleware, addProductController);
 
 //EditProduct
 router.put('/editProduct/:id', redisAdminTokenCheck, editProductController);

@@ -14,7 +14,6 @@ client.on("connect", function () {
 exports.set = async (key, data) => {
 
     let result = await client.set(key, data)
-    console.log(key, data);
     return result;
 }
 
@@ -24,14 +23,18 @@ exports.del = async (key) => {
 }
 exports.redisAdminTokenCheck = async (req, res, next) => {
     const token = await client.exists('adminToken')
-    console.log(token);
     if (!token)
         return res.json('Login please!')
     next();
 }
 exports.redisUserLoginTokenCheck = async (req, res, next) => {
     const token = await client.exists('userToken')
-    console.log(token);
+    if (token)
+        return res.json('Currently logged in! Please logout and login again!')
+    next();
+}
+exports.redisAdminLoginTokenCheck = async (req, res, next) => {
+    const token = await client.exists('adminToken')
     if (token)
         return res.json('Currently logged in! Please logout and login again!')
     next();

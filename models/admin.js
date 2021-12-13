@@ -4,5 +4,6 @@ const adminSchema = new mongoose.Schema({
     lastName: { type: String },
     userName: { type: String, unique: true },
     password: { type: String },
+    role: { type: String }
 });
 module.exports = mongoose.model('Admin', adminSchema);
