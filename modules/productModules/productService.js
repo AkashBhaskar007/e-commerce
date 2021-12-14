@@ -13,3 +13,9 @@ exports.createCart = async (userID, productID, productQuantity) => {
         return false;
     return newCart;
 }
+exports.deleteCartService = async (id) => {
+    const delProduct = await Cart.deleteOne({ _id: id })
+    if (delProduct.deletedCount < 1)
+        return false;
+    return true;
+}
