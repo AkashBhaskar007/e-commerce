@@ -1,6 +1,9 @@
 require('dotenv').config();
 const { createCart, deleteCartService } = require('./productService')
 const Cart = require('../../models/cart')
+
+
+
 exports.cartController = async (req, res) => {
     let { id } = req.params;
     const userID = req.decoded.id;
@@ -13,6 +16,8 @@ exports.cartController = async (req, res) => {
         .populate('userID productID', 'productName productDescription');
     return res.send({ message: 'Product added to cart!', cart });
 }
+
+
 exports.deleteCartController = async (req, res) => {
     let { id } = req.params;
     const cart = await deleteCartService(id);
