@@ -45,7 +45,7 @@ exports.loginController = async (req, res) => {
 }
 exports.logoutController = async (req, res) => {
     const userLogout = await userLogoutService()
-    return res.send("Logout Successful!")
+    return res.send("Logout Successful!")//error
 
 }
 exports.editProfileController = async (req, res) => {

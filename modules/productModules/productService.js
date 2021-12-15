@@ -3,12 +3,15 @@ const Product = require('../../models/product')
 const Cart = require('../../models/cart')
 
 exports.createCart = async (userID, productID, productQuantity) => {
+    const quantity = await Product.findOne(Product.productQuantity);
+    console.log(quantity);
     const newCart = await Cart.create({
         userID,
         productID,
         productQuantity
 
     });
+
     if (!newCart)
         return false;
     return newCart;

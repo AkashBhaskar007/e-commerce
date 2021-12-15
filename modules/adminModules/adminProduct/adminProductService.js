@@ -23,7 +23,7 @@ exports.showProductService = async () => {
     const product = await Product.find()
     if (!product)
         return false;
-    return product;
+    return product;//pagination
 }
 exports.editProductService = async (editProduct) => {
     const editProducts = await Product.updateOne({ _id: editProduct.id }, {

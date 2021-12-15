@@ -40,6 +40,7 @@ router.get('/viewProduct', redisAdminTokenCheck, viewProductController);
 router.get('/listUsers', redisAdminTokenCheck, tokenCheckMiddleware, listUserController);
 
 //BlockUsers
+//softDelete
 router.post('/blockUser/:id', redisAdminTokenCheck, blockUserController)
 
 module.exports = router

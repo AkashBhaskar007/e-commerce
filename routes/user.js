@@ -24,6 +24,7 @@ router.post('/logoutUser', redisUserTokenCheck, logoutController);
 router.put('/editProfile', redisUserTokenCheck, tokenCheckMiddleware, editProfileController);
 
 //ViewProduct
-router.get('/viewProduct', redisUserTokenCheck, viewProductController)
+router.get('/viewProduct', redisUserTokenCheck, viewProductController);
+
 
 module.exports = router

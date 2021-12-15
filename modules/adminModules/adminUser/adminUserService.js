@@ -5,7 +5,7 @@ exports.showUsers = async (id) => {
     const user = await User.find();
     if (user == "")
         return false;
-    return user;
+    return user;//pagination
 }
 
 exports.blockUserService = async (id, blocky) => {
