@@ -11,6 +11,7 @@ const {
     adminLogoutService,
 } = require('../adminRegLog/adminRegLogService')
 
+
 exports.registerController = async (req, res) => {
     let { firstName, lastName, userName, password } = req.body;
     //use validation

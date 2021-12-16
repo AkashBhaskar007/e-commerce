@@ -1,11 +1,13 @@
 const User = require('../../../models/user');
 const Blocked = require('../../../models/blockedUsers')
 
-exports.showUsers = async (id) => {
+exports.showUsers = async (startIndex, endIndex) => {
+
     const user = await User.find();
     if (user == "")
         return false;
-    return user;//pagination
+    const resultUser = user.slice(startIndex, endIndex)
+    return resultUser;//pagination*/
 }
 
 exports.blockUserService = async (id, blocky) => {
