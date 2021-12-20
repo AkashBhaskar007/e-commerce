@@ -18,11 +18,8 @@ exports.tokenCheckMiddleware = async (req, res, next) => {
         }
     }
     else {
-        result = {
-            error: "Token required",
-            status: 401,
-        };
-        res.status(401).send(result);
+       
+        res.status(401).send('Token required');
     }
 }
 

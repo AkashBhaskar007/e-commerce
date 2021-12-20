@@ -8,7 +8,7 @@ const {
     logoutController,
     editProfileController
 } = require('../modules/userModules/userRegLog/userRegLogController');
-const { viewProductController } = require('../modules/userModules/userProduct/userProductController');
+const { viewProductController, orderController } = require('../modules/userModules/userProduct/userProductController');
 const { redisUserTokenCheck, redisUserLoginTokenCheck } = require('../redisconfig/redisconfig');
 const { tokenCheckMiddleware } = require('../middlewares/tokenCheck');
 //RegisterUser
@@ -26,5 +26,6 @@ router.put('/editProfile', redisUserTokenCheck, tokenCheckMiddleware, editProfil
 //ViewProduct
 router.get('/viewProduct', redisUserTokenCheck, viewProductController);
 
-
+//OrderProduct
+router.post('/checkout', redisUserTokenCheck, orderController);
 module.exports = router

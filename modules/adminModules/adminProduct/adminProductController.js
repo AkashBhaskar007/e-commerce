@@ -27,7 +27,12 @@ exports.addProductController = async (req, res) => {
     return res.send('Not authorised to add products!')
 }
 exports.viewProductController = async (req, res) => {
-    const product = await showProductService();
+    const page = req.query.page
+    const limit = req.query.limit
+
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
+    const product = await showProductService(startIndex, endIndex);
     if (product == "")
         return res.send({ message: 'No products added!' })
     return res.send({

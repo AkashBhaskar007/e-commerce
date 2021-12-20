@@ -19,11 +19,13 @@ exports.addProductService = async (params) => {
         return false;
     return newProduct;
 }
-exports.showProductService = async () => {
+exports.showProductService = async (startIndex, endIndex) => {
     const product = await Product.find()
-    if (!product)
+    if (product == "")
         return false;
-    return product;//pagination
+    const resultProduct = product.slice(startIndex, endIndex)
+    return resultProduct;
+
 }
 exports.editProductService = async (editProduct) => {
     const editProducts = await Product.updateOne({ _id: editProduct.id }, {

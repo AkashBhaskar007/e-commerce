@@ -50,7 +50,7 @@ exports.loginController = async (req, res) => {
             return res.json({ message: "Invalid pasword!" })
 
 
-    }    //      const adminLogin = await adminLoginService(userName, password)
+    } //const adminLogin = await adminLoginService(userName, password)
     else {
         return res.status(401).json({ message: "Admin not found!" })
     }

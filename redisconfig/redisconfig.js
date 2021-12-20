@@ -43,7 +43,7 @@ exports.redisAdminLoginTokenCheck = async (req, res, next) => {
         return res.json('Currently logged in! Please logout and login again!')
     next();
 }
-exports. redisUserTokenCheck = async (req, res, next) => {
+exports.redisUserTokenCheck = async (req, res, next) => {
     const token = await client.exists('userToken')
     if (!token)
         return res.send('Login please!')

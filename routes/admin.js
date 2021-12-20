@@ -34,13 +34,13 @@ router.put('/editProduct/:id', redisAdminTokenCheck, tokenCheckMiddleware, editP
 router.delete('/deleteProduct/:id', redisAdminTokenCheck, tokenCheckMiddleware, deleteProductController);
 
 //ListItemAdmin
-router.get('/viewProduct', redisAdminTokenCheck, viewProductController);
+router.get('/viewProduct', redisAdminTokenCheck, tokenCheckMiddleware, viewProductController);
 
 //ListUsers
 router.get('/listUsers', redisAdminTokenCheck, tokenCheckMiddleware, listUserController);
 
 //BlockUsers
 //softDelete
-router.post('/blockUser/:id', redisAdminTokenCheck, blockUserController)
+//router.post('/blockUser/:id', redisAdminTokenCheck, blockUserController)
 
 module.exports = router

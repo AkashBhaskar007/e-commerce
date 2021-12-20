@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema({
-    productID: { type: mongoose.Types.ObjectId, ref: 'Products' },
+    cartID: { type: mongoose.Types.ObjectId, ref: 'Cart' },
     userID: { type: mongoose.Types.ObjectId, ref: 'User' },
     paymentMethod: { type: String },
     orderStatus: { type: String },
-    orderDate: { type: timestamps },
-}, {
-    timestamps: true
+    orderDate: { type: Date }
 });
 module.exports = mongoose.model('Orders', orderSchema);
