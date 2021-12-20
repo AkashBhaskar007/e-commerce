@@ -7,7 +7,7 @@ const {
     loginController,
     logoutController, } = require('../modules/adminModules/adminRegLog/adminRegLogController');
 
-const { addProductController, viewProductController, editProductController, deleteProductController } = require('../modules/adminModules/adminProduct/adminProductController');
+const { addProductController, viewProductController, editProductController, deleteProductController, updateOrderController } = require('../modules/adminModules/adminProduct/adminProductController');
 
 const { listUserController, blockUserController } = require('../modules/adminModules/adminUser/adminUserController');
 
@@ -39,8 +39,6 @@ router.get('/viewProduct', redisAdminTokenCheck, tokenCheckMiddleware, viewProdu
 //ListUsers
 router.get('/listUsers', redisAdminTokenCheck, tokenCheckMiddleware, listUserController);
 
-//BlockUsers
-//softDelete
-//router.post('/blockUser/:id', redisAdminTokenCheck, blockUserController)
-
+//UpdateOrder
+router.put('/updateOrder/:id', redisAdminTokenCheck, tokenCheckMiddleware, updateOrderController);
 module.exports = router

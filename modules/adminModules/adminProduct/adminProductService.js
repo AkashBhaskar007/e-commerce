@@ -1,3 +1,4 @@
+const order = require('../../../models/order');
 const Product = require('../../../models/product');
 
 exports.addProductService = async (params) => {
@@ -43,6 +44,14 @@ exports.editProductService = async (editProduct) => {
 exports.deleteProductService = async (id) => {
     const delProduct = await Product.deleteOne({ _id: id })
     if (delProduct.deletedCount < 1)
+        return false;
+    return true;
+}
+exports.updateOrderService = async (updateOrder) => {
+    const updateOrderss = await order.updateOne({ _id: updateOrder.id }, {
+        orderStatus: updateOrder.orderStatus
+    })
+    if (updateOrderss.modifiedCount < 1)
         return false;
     return true;
 }

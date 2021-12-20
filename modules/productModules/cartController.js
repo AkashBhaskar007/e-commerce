@@ -1,7 +1,8 @@
 require('dotenv').config();
-const { createCart, deleteCartService, createOrder } = require('./productService')
+const { createCart, deleteCartService, createOrder, viewOrder } = require('./productService')
 const Cart = require('../../models/cart')
-const Product = require('../../models/product')
+const Product = require('../../models/product');
+const order = require('../../models/order');
 
 
 exports.cartController = async (req, res) => {
@@ -38,9 +39,22 @@ exports.checkoutController = async (req, res) => {
     let { id } = req.params;
     const userID = req.decoded.id;
     let { paymentMethod } = req.body;
+    const findCart = await Cart.findById(id);
+    if (!findCart)
+        return res.send('Cart empty')
     const newOrder = await createOrder(userID, id, paymentMethod);
     if (!newOrder)
         return res.send('Order not placed! Please try later');
-    return res.send({message:'Order placed successfully', newOrder});
+    await Cart.findByIdAndDelete(id);
+    return res.send({ message: 'Order placed successfully', newOrder });
+
+}
+
+exports.viewOrderController = async (req, res) => {
+    const userID = req.decoded.id;
+    const viewOrders = await viewOrder(userID);
+    if (!viewOrders)
+        return res.send('No orders placed!')
+    return res.send(viewOrders)
 
 }

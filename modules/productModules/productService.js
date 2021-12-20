@@ -1,7 +1,7 @@
 require('dotenv').config();
 const Product = require('../../models/product')
 const Cart = require('../../models/cart');
-const order = require('../../models/order');
+const Order = require('../../models/order');
 
 exports.createCart = async (userID, productID, productQuantity) => {
     const newCart = await Cart.create({
@@ -23,7 +23,7 @@ exports.deleteCartService = async (id) => {
 }
 exports.createOrder = async (userID, cartID, paymentMethod, orderStatus) => {
 
-    const newOrder = await order.create({
+    const newOrder = await Order.create({
         userID,
         cartID,
         paymentMethod,
@@ -32,4 +32,11 @@ exports.createOrder = async (userID, cartID, paymentMethod, orderStatus) => {
     if (!newOrder)
         return false;
     else return newOrder;
+}
+
+exports.viewOrder = async (userID) => {
+    const showOrder = await Order.find({ where: Order.userID == userID })
+    if (!showOrder)
+        return false;
+    return showOrder;
 }
