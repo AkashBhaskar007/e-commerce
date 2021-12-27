@@ -10,9 +10,6 @@ const {
 
 exports.registerController = async (req, res) => {
     let { firstName, lastName, email, userName, password, address } = req.body;
-    if (!firstName || !lastName || !email || !userName || !password || !address) {
-        return res.status(400).json("All fields have not been entered!")
-    }
     let user = await userDetails(userName);
     if (user) {
         return res.status(400).send("Username already taken, please try another")

@@ -6,7 +6,6 @@ const order = require('../../models/order');
 
 
 exports.cartController = async (req, res) => {
-    let newQuantity;
     let { id } = req.params;
     const userID = req.decoded.id;
     let { productQuantity } = req.body;
@@ -16,12 +15,11 @@ exports.cartController = async (req, res) => {
     const cart = await Cart.
         findById(newCart._id)
         .populate('userID productID', 'productName productDescription');
-    newQuantity = Product.productQuantity - Cart.productQuantity;
-    await Product.findOneAndUpdate({ id }, {
-        productQuantity: newQuantity
+    await Product.findById({ productQuantity }, {
+        productQuantity: Product.productQuantity - Cart.productQuantity
     });
 
-    console.log(Product.productPrice);
+    console.log(Product.productQuantity);
 
     return res.send({ message: 'Product added to cart!', cart });
 }

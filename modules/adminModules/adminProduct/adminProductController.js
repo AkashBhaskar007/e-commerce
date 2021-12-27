@@ -3,7 +3,9 @@ require('dotenv').config()
 const {
     addProductService, showProductService, editProductService, deleteProductService, updateOrderService
 } = require('../adminProduct/adminProductService')
-
+const { body, validationResult }
+    = require('express-validator');
+const product = require('../../../models/product');
 
 
 exports.addProductController = async (req, res) => {
@@ -14,16 +16,16 @@ exports.addProductController = async (req, res) => {
             productQuantityAvailable,
             productPrice,
             productImage } = req.body;
-        if (!productName || !productDescription || !productCategory || !productQuantityAvailable || !productPrice || !productImage)
-            return res.status(400).json({ message: "All fields have not been entered!" })
-        const newProduct = await addProductService({ productName, productDescription, productCategory, productQuantityAvailable, productPrice, productImage })
-        if (!newProduct)
-            return res.json({ message: 'Product not added!' })
-        return res.json({
-            message: 'Product added!',
-            data: newProduct
-        });
+
+        const addProduct = await addProductService({
+            productName, productDescription, productCategory, productQuantityAvailable, productPrice, productImage
+        })
+        if (!addProduct)
+            return res.send('Something went wrong')
+        return res.send(addProduct)
+
     }
+
     return res.send('Not authorised to add products!')
 }
 exports.viewProductController = async (req, res) => {
@@ -90,3 +92,21 @@ exports.updateOrderController = async (req, res) => {
         return res.send('Something went wrong')
     return res.send('Order updated')
 }
+
+
+
+/*let { productName,
+    productDescription,
+    productCategory,
+    productQuantityAvailable,
+    productPrice,
+    productImage } = req.body;
+if (!productName || !productDescription || !productCategory || !productQuantityAvailable || !productPrice || !productImage)
+    return res.status(400).json({ message: "All fields have not been entered!" })
+const newProduct = await addProductService({ productName, productDescription, productCategory, productQuantityAvailable, productPrice, productImage })
+if (!newProduct)
+    return res.json({ message: 'Product not added!' })
+return res.json({
+    message: 'Product added!',
+    data: newProduct
+});*/
